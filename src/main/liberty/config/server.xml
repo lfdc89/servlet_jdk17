@@ -1,0 +1,26 @@
+<server description="Sample Liberty server">
+
+    <featureManager>
+        <feature>servlet-6.0</feature>
+    </featureManager>
+
+    <httpEndpoint httpPort="${env.SERVER_HTTP_PORT}" httpsPort="${env.SERVER_HTTPS_PORT}" id="defaultHttpEndpoint">
+        <httpOptions removeServerHeader="true"/>
+    </httpEndpoint>
+    <httpDispatcher trustedSensitiveHeaderOrigin="*"/>
+    <httpSession cookieSecure="true" cookieHttpOnly="true" />
+    <!-- Automatically expand WAR files and EAR files -->
+    <applicationManager autoExpand="false" />
+
+    <!-- Disabilita la visualizzazione della welcome page: utile per penetration test -->
+    <httpDispatcher enableWelcomePage="false"/>
+
+<!--    <logging maxFiles="5"-->
+<!--             traceSpecification="${env.LOGGING_TRACE_SPECIFICATION}" messageFormat="${env.LOGGING_MESSAGE_FORMAT}"-->
+<!--             messageSource="${env.LOGGING_MESSAGE_SOURCE}" />-->
+
+    <applicationMonitor updateTrigger="mbean" dropinsEnabled="false" />
+
+    <webApplication id="servlet-war" location="servlet-war.war" name="servlet-war"/>
+
+</server>

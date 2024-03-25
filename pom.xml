@@ -1,0 +1,79 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ste.applications</groupId>
+	<artifactId>servlet-war</artifactId>
+	<version>${revision}</version>
+	<packaging>war</packaging>
+
+	<properties>
+		<maven.war.plugin>3.3.2</maven.war.plugin>
+		<open.liberty.plugin>3.10</open.liberty.plugin>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
+		<jakarta.ee.version>10.0.0</jakarta.ee.version>
+		<revision>0.0.1-SNAPSHOT</revision>
+		<server.name>libertyServer</server.name>
+		<sl4j.version>2.0.11</sl4j.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>jakarta.platform</groupId>
+			<artifactId>jakarta.jakartaee-api</artifactId>
+			<version>${jakarta.ee.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- slf4j api and implementation-->
+<!--		<dependency>-->
+<!--			<groupId>org.slf4j</groupId>-->
+<!--			<artifactId>slf4j-api</artifactId>-->
+<!--			<version>${sl4j.version}</version>-->
+<!--			<scope>provided</scope>-->
+<!--		</dependency>-->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-jdk14</artifactId>
+			<version>${sl4j.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${maven.war.plugin}</version>
+			</plugin>
+			<plugin>
+				<groupId>io.openliberty.tools</groupId>
+				<artifactId>liberty-maven-plugin</artifactId>
+				<version>${open.liberty.plugin}</version>
+				<configuration>
+					<serverName>${server.name}</serverName>
+
+					<copyDependencies>
+						<!-- Logging library -->
+						<dependencyGroup>
+							<location>lib/slf4j</location>
+<!--							<dependency>-->
+<!--								<groupId>org.slf4j</groupId>-->
+<!--								<artifactId>slf4j-api</artifactId>-->
+<!--							</dependency>-->
+							<dependency>
+								<groupId>org.slf4j</groupId>
+								<artifactId>slf4j-jdk14</artifactId>
+							</dependency>
+						</dependencyGroup>
+					</copyDependencies>
+
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
